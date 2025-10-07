@@ -1,0 +1,272 @@
+class RegistrationForm {
+    constructor() {
+        this.form = document.getElementById('registrationForm');
+        this.initializeEventListeners();
+    }
+
+    initializeEventListeners() {
+        // Real-time validation for all fields
+        document.getElementById('name').addEventListener('input', () => this.validateName());
+        document.getElementById('email').addEventListener('input', () => this.validateEmail());
+        document.getElementById('password').addEventListener('input', () => {
+            this.validatePassword();
+            this.updatePasswordStrength();
+        });
+        document.getElementById('confirmPassword').addEventListener('input', () => this.validateConfirmPassword());
+        document.getElementById('mobile').addEventListener('input', () => this.validateMobile());
+        document.getElementById('language').addEventListener('change', () => this.validateLanguage());
+        document.getElementById('attachment').addEventListener('change', () => this.validateAttachment());
+        
+        // Gender radio buttons
+        document.querySelectorAll('input[name="gender"]').forEach(radio => {
+            radio.addEventListener('change', () => this.validateGender());
+        });
+        
+        // Terms checkbox
+        document.getElementById('terms').addEventListener('change', () => this.validateTerms());
+        
+        // Form submission
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+
+    // Validation Methods
+    validateName() {
+        const name = document.getElementById('name').value.trim();
+        const errorElement = document.getElementById('nameError');
+        
+        if (!name) {
+            this.showError(errorElement, 'Name is required');
+            return false;
+        } else if (name.length < 2) {
+            this.showError(errorElement, 'Name must be at least 2 characters long');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validateEmail() {
+        const email = document.getElementById('email').value.trim();
+        const errorElement = document.getElementById('emailError');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!email) {
+            this.showError(errorElement, 'Email is required');
+            return false;
+        } else if (!emailRegex.test(email)) {
+            this.showError(errorElement, 'Please enter a valid email address');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validatePassword() {
+        const password = document.getElementById('password').value;
+        const errorElement = document.getElementById('passwordError');
+        
+        if (!password) {
+            this.showError(errorElement, 'Password is required');
+            return false;
+        } else if (password.length < 8) {
+            this.showError(errorElement, 'Password must be at least 8 characters long');
+            return false;
+        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+            this.showError(errorElement, 'Password must contain uppercase, lowercase, and numbers');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validateConfirmPassword() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorElement = document.getElementById('confirmPasswordError');
+        
+        if (!confirmPassword) {
+            this.showError(errorElement, 'Please confirm your password');
+            return false;
+        } else if (password !== confirmPassword) {
+            this.showError(errorElement, 'Passwords do not match');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validateMobile() {
+        const mobile = document.getElementById('mobile').value.trim();
+        const errorElement = document.getElementById('mobileError');
+        const mobileRegex = /^\+?[\d\s-]{10,}$/;
+        
+        if (!mobile) {
+            this.showError(errorElement, 'Mobile number is required');
+            return false;
+        } else if (!mobileRegex.test(mobile)) {
+            this.showError(errorElement, 'Please enter a valid mobile number');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validateLanguage() {
+        const language = document.getElementById('language').value;
+        const errorElement = document.getElementById('languageError');
+        
+        if (!language) {
+            this.showError(errorElement, 'Please select a language');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validateAttachment() {
+        const fileInput = document.getElementById('attachment');
+        const errorElement = document.getElementById('attachmentError');
+        
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            
+            if (!allowedTypes.includes(file.type)) {
+                this.showError(errorElement, 'Please upload only PDF, JPG, or PNG files');
+                return false;
+            } else if (file.size > maxSize) {
+                this.showError(errorElement, 'File size must be less than 5MB');
+                return false;
+            }
+        }
+        
+        this.hideError(errorElement);
+        return true;
+    }
+
+    validateGender() {
+        const gender = document.querySelector('input[name="gender"]:checked');
+        const errorElement = document.getElementById('genderError');
+        
+        if (!gender) {
+            this.showError(errorElement, 'Please select your gender');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    validateTerms() {
+        const terms = document.getElementById('terms').checked;
+        const errorElement = document.getElementById('termsError');
+        
+        if (!terms) {
+            this.showError(errorElement, 'You must agree to the terms and conditions');
+            return false;
+        } else {
+            this.hideError(errorElement);
+            return true;
+        }
+    }
+
+    updatePasswordStrength() {
+        const password = document.getElementById('password').value;
+        const strengthBar = document.querySelector('.strength-bar');
+        const strengthText = document.getElementById('strengthText');
+        
+        let strength = 0;
+        let color = '#dc3545';
+        let text = 'Weak';
+        
+        if (password.length >= 8) strength += 25;
+        if (/[a-z]/.test(password)) strength += 25;
+        if (/[A-Z]/.test(password)) strength += 25;
+        if (/[0-9]/.test(password)) strength += 25;
+        
+        if (strength >= 75) {
+            color = '#28a745';
+            text = 'Strong';
+        } else if (strength >= 50) {
+            color = '#ffc107';
+            text = 'Medium';
+        }
+        
+        strengthBar.style.setProperty('--strength-width', strength + '%');
+        strengthBar.style.backgroundColor = color;
+        strengthText.textContent = text;
+        strengthText.style.color = color;
+    }
+
+    // Helper Methods
+    showError(element, message) {
+        element.textContent = message;
+        element.style.display = 'block';
+    }
+
+    hideError(element) {
+        element.textContent = '';
+        element.style.display = 'none';
+    }
+
+    validateAll() {
+        const validations = [
+            this.validateName(),
+            this.validateEmail(),
+            this.validatePassword(),
+            this.validateConfirmPassword(),
+            this.validateMobile(),
+            this.validateLanguage(),
+            this.validateAttachment(),
+            this.validateGender(),
+            this.validateTerms()
+        ];
+        
+        return validations.every(validation => validation === true);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.validateAll()) {
+            // Form is valid - you can submit data to server here
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Registering...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                alert('Registration successful!');
+                this.form.reset();
+                submitBtn.textContent = 'Register Now';
+                submitBtn.disabled = false;
+                
+                // Reset password strength indicator
+                document.querySelector('.strength-bar').style.setProperty('--strength-width', '0%');
+                document.getElementById('strengthText').textContent = 'Weak';
+                document.getElementById('strengthText').style.color = '#666';
+            }, 2000);
+        } else {
+            // Scroll to first error
+            const firstError = document.querySelector('.error-message[style="display: block;"]');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+}
+
+// Add CSS variable for password strength
+document.documentElement.style.setProperty('--strength-width', '0%');
+
+// Initialize the form when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new RegistrationForm();
+});

@@ -1,0 +1,39 @@
+# Registration Form with Real-time Validation
+
+A responsive and user-friendly registration form built with HTML, CSS, and JavaScript featuring real-time validation.
+
+## Features
+
+- ✅ **Real-time Validation** - Instant feedback as users type
+- 📱 **Responsive Design** - Works on all devices
+- 🔒 **Password Strength Meter** - Visual password strength indicator
+- 🎨 **Modern UI** - Clean and professional design
+- ⚡ **Fast & Lightweight** - No external dependencies
+
+## Form Fields
+
+1. **Name** - Required, minimum 2 characters
+2. **Email** - Valid email format with @ symbol
+3. **Password** - Minimum 8 characters with uppercase, lowercase, and numbers
+4. **Confirm Password** - Must match password
+5. **Mobile Number** - Valid phone number format
+6. **Language** - Dropdown selection
+7. **Attachment** - File upload (PDF, JPG, PNG, max 5MB)
+8. **Gender** - Radio button selection
+9. **Terms & Conditions** - Required checkbox
+
+## Validation Features
+
+- Real-time error messages
+- Visual feedback (green/red borders)
+- Password strength indicator
+- File type and size validation
+- Mobile number pattern validation
+
+## How to Run
+
+1. Clone or download the project files
+2. Open `index.html` in a web browser
+3. The form is ready to use!
+
+## File Structure

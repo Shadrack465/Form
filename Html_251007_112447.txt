@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Create Your Account</h2>
+                <p class="subtitle">Join our community today</p>
+            </div>
+            
+            <form id="registrationForm">
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">👤</div>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name">
+                    </div>
+                    <span class="error-message" id="nameError"></span>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">📧</div>
+                        <input type="email" id="email" name="email" placeholder="Enter your email">
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">🔒</div>
+                        <input type="password" id="password" name="password" placeholder="Enter your password">
+                    </div>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text" id="strengthText">Weak</span>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">🔒</div>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+                    </div>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+
+                <!-- Mobile Number Field -->
+                <div class="form-group">
+                    <label for="mobile">Mobile Number *</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">📱</div>
+                        <input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number">
+                    </div>
+                    <span class="error-message" id="mobileError"></span>
+                </div>
+
+                <!-- Language Field -->
+                <div class="form-group">
+                    <label for="language">Preferred Language *</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">🌐</div>
+                        <select id="language" name="language">
+                            <option value="">Select a language</option>
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="chinese">Chinese</option>
+                        </select>
+                    </div>
+                    <span class="error-message" id="languageError"></span>
+                </div>
+
+                <!-- Attachment Field -->
+                <div class="form-group">
+                    <label for="attachment">Upload Document</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">📎</div>
+                        <input type="file" id="attachment" name="attachment" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                    <span class="file-info">Allowed: PDF, JPG, PNG (Max: 5MB)</span>
+                    <span class="error-message" id="attachmentError"></span>
+                </div>
+
+                <!-- Gender Field -->
+                <div class="form-group">
+                    <label>Gender *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="male">
+                            <span class="radio-custom"></span>
+                            Male
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="female">
+                            <span class="radio-custom"></span>
+                            Female
+                        </label>
+                    </div>
+                    <span class="error-message" id="genderError"></span>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms">
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#">Terms and Conditions</a> *
+                    </label>
+                    <span class="error-message" id="termsError"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span>Register Now</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
